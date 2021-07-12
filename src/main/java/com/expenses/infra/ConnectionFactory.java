@@ -6,14 +6,21 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private ConnectionFactory() {}
+  private ConnectionFactory() {
+  }
 
-    public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:postgresql://localhost/ExpenseDB", "postgres", "0152");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+  public static Connection getConnection() {
+
+    String url = "jdbc:postgresql://localhost/ExpenseDB";
+    String user = "postgres";
+    String password = "0152";
+
+    try {
+      return DriverManager.getConnection(url, user, password);
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
     }
+
+  }
 
 }
