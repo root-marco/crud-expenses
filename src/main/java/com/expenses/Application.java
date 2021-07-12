@@ -1,24 +1,24 @@
 package com.expenses;
 
 import com.expenses.dao.ExpenseDAO;
-import com.expenses.model.Category;
 import com.expenses.model.Expense;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class Application {
 
   public static void main(String[] args) {
 
     ExpenseDAO dao = new ExpenseDAO();
+    List<Expense> expenses = dao.findAll();
 
-    Expense expense = new Expense();
-    expense.setDescription("rent payment");
-    expense.setCategory(Category.HOME);
-    expense.setValue(1200);
-    expense.setDate(LocalDate.of(2021, 5, 20));
+    for (Expense expense : expenses) {
+      System.out.println("ID: " + expense.getId());
+      System.out.println("DESCRIPTION: " + expense.getDescription());
+      System.out.println("VALUE: " + expense.getValue());
 
-    dao.save(expense);
+      System.out.println("--------------------");
+    }
 
   }
 
