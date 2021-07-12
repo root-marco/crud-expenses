@@ -4,50 +4,57 @@ import java.time.LocalDate;
 
 public class Expense {
 
-    private Long id;
-    private String description;
-    private LocalDate date;
-    private double value;
-    private Category category;
+  private Long id;
+  private String description;
+  private LocalDate date;
+  private double value;
+  private Category category;
 
-    public Long getId() {
-        return id;
-    }
+  public Expense(Long id, String description, LocalDate date, double value, Category category) {
+    this.id = id;
+    this.description = description;
+    this.date = date;
+    this.value = value;
+    this.category = category;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public LocalDate getDate() {
-        return date;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+  public LocalDate getDate() {
+    return date;
+  }
 
-    public double getValue() {
-        return value;
-    }
+  public void setDate(LocalDate date) {
+    this.date = date;
+  }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+  public double getValue() {
+    return value;
+  }
 
-    public Category getCategory() {
-        return category;
-    }
+  public void setValue(double value) {
+    this.value = value;
+  }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+  public Category getCategory() {
+    return category;
+  }
 
+  public void setCategory(Category category) {
+    this.category = category;
+  }
 }
