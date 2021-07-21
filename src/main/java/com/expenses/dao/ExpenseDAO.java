@@ -53,21 +53,23 @@ public class ExpenseDAO implements IExpenseDAO {
   public List<Expense> findAll() {
 
     String sql = "SELECT id, description, date, value, category FROM expenses";
+
     List<Expense> expenses = new ArrayList<>();
 
     try (Connection connection = ConnectionFactory.getConnection()) {
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
-        Long id = resultSet.getLong("id");
-        String description = resultSet.getString("description");
-        LocalDate date = resultSet.getDate("date").toLocalDate();
-        double value = resultSet.getDouble("value");
-        Category category = Category.valueOf(resultSet.getString("category"));
+        Long id_rs = resultSet.getLong("id");
+        String description_rs = resultSet.getString("description");
+        LocalDate date_rs = resultSet.getDate("date").toLocalDate();
+        double value_rs = resultSet.getDouble("value");
+        Category category_rs = Category.valueOf(resultSet.getString("category"));
 
-        Expense expense = new Expense(id, description, date, value, category);
+        Expense expense = new Expense(id_rs, description_rs, date_rs, value_rs, category_rs);
         expenses.add(expense);
       }
 
@@ -76,16 +78,70 @@ public class ExpenseDAO implements IExpenseDAO {
     }
 
     return expenses;
+
   }
 
   @Override
   public Optional<Expense> findById(Long id) {
-    return Optional.empty();
+
+    String sql = "SELECT id, description, date, value, category FROM expenses WHERE id = ?";
+
+    Expense expense = null;
+
+    try (Connection connection = ConnectionFactory.getConnection()) {
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setLong(1, id);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        Long id_rs = resultSet.getLong("id");
+        String description_rs = resultSet.getString("description");
+        LocalDate date_rs = resultSet.getDate("date").toLocalDate();
+        double value_rs = resultSet.getDouble("value");
+        Category category_rs = Category.valueOf(resultSet.getString("category"));
+        expense = new Expense(id_rs, description_rs, date_rs, value_rs, category_rs);
+      }
+
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return Optional.ofNullable(expense);
+
   }
 
   @Override
   public List<Expense> findByCategory(Category category) {
-    return null;
+
+    String sql = "SELECT id, description, date, value, category FROM expenses WHERE category = ?";
+    List<Expense> expenses = new ArrayList<>();
+
+    try (Connection connection = ConnectionFactory.getConnection()) {
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, category.toString());
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        Long id_rs = resultSet.getLong("id");
+        String description_rs = resultSet.getString("description");
+        LocalDate date_rs = resultSet.getDate("date").toLocalDate();
+        double value_rs = resultSet.getDouble("value");
+        Category category_rs = Category.valueOf(resultSet.getString("category"));
+
+        Expense expense = new Expense(id_rs, description_rs, date_rs, value_rs, category_rs);
+        expenses.add(expense);
+      }
+
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return expenses;
+
   }
 
 }
