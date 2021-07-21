@@ -1,5 +1,7 @@
 package com.expenses.infra;
 
+// psql -h localhost -p 5432 -U postgres
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
