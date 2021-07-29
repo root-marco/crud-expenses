@@ -12,12 +12,14 @@ public class Application {
 
     ExpenseDAO dao = new ExpenseDAO();
 
-    Optional<Expense> expenseOptional = dao.findById(1L);
-    Expense expense = expenseOptional.get();
+//    Optional<Expense> expenseOptional = dao.findById(1L);
+//    Expense expense = expenseOptional.get();
+//
+//    expense.setDescription("payment updated");
+//
+//    dao.update(expense);
 
-    expense.setDescription("payment updated");
-
-    dao.update(expense);
+    dao.delete(1L);
 
   }
 

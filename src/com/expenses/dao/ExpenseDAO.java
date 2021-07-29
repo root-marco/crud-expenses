@@ -66,6 +66,19 @@ public class ExpenseDAO implements IExpenseDAO {
   @Override
   public void delete(Long id) {
 
+    String sql = "DELETE FROM expenses WHERE id = ?";
+
+    try (Connection connection = ConnectionFactory.getConnection()) {
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setLong(1, id);
+
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
   }
 
   @Override
