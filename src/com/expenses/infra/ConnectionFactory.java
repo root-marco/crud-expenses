@@ -13,7 +13,7 @@ public class ConnectionFactory {
 
   public static Connection getConnection() {
 
-    String url = "jdbc:postgresql://localhost/ExpenseDB";
+    String url = "jdbc:postgresql://localhost/ExpensesDB";
     String user = "postgres";
     String password = "0152";
 

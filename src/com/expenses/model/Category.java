@@ -7,6 +7,6 @@ public enum Category {
   HEALTH,
   TRANSPORT,
   HOME,
-  OTHERS
+  OTHERS,
 
 }
