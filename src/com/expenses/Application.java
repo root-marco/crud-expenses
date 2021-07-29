@@ -4,7 +4,6 @@ import com.expenses.dao.ExpenseDAO;
 import com.expenses.model.Category;
 import com.expenses.model.Expense;
 
-import java.util.List;
 import java.util.Optional;
 
 public class Application {
@@ -13,36 +12,12 @@ public class Application {
 
     ExpenseDAO dao = new ExpenseDAO();
 
-    List<Expense> expenses = dao.findByCategory(Category.TRANSPORT);
+    Optional<Expense> expenseOptional = dao.findById(1L);
+    Expense expense = expenseOptional.get();
 
-    for (Expense expense : expenses) {
-      System.out.println("--------------------------------------------------");
-      System.out.println("ID: " + expense.getId());
-      System.out.println("DESCRIPTION: " + expense.getDescription());
-      System.out.println("CATEGORY: " + expense.getCategory());
-      System.out.println("VALUE: " + expense.getValue());
-    }
+    expense.setDescription("payment updated");
 
-
-    /*
-    Optional<Expense> expenseOptional = dao.findById(2L);
-
-    expenseOptional.ifPresent(expense -> {
-      System.out.println("ID: " + expense.getId());
-      System.out.println("DESCRIPTION: " + expense.getDescription());
-      System.out.println("VALUE: " + expense.getValue());
-    });
-    */
-
-    /*
-    List<Expense> expenses = dao.findAll();
-
-    for (Expense expense : expenses) {
-      System.out.println("ID: " + expense.getId());
-      System.out.println("DESCRIPTION: " + expense.getDescription());
-      System.out.println("VALUE: " + expense.getValue());
-    }
-    */
+    dao.update(expense);
 
   }
 

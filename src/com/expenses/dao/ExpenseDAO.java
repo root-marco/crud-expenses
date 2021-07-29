@@ -41,7 +41,26 @@ public class ExpenseDAO implements IExpenseDAO {
 
   @Override
   public Expense update(Expense expense) {
-    return null;
+
+    String sql = "UPDATE expenses SET description = ?, value = ?, date = ?, category = ? WHERE id = ?";
+
+    try (Connection connection = ConnectionFactory.getConnection()) {
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, expense.getDescription());
+      preparedStatement.setDouble(2, expense.getValue());
+      preparedStatement.setDate(3, java.sql.Date.valueOf(expense.getDate()));
+      preparedStatement.setString(4, expense.getCategory().toString());
+      preparedStatement.setLong(5, expense.getId());
+
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return expense;
+
   }
 
   @Override
